@@ -1,0 +1,26 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Apr 9, 2019, 8:51:56 PM
+    Author     : sshru
+*/
+
+.wowsignal{
+    display: block;
+    width: 100%;
+    background-color: red;
+    font-family: monospace;
+    text-align: justify;
+}
+
+.halfwidth{
+    width: 50%;
+    float: left;
+}
+
+span{
+    color: red;
+}
