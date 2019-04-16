@@ -4,39 +4,125 @@
  * and open the template in the editor.
  */
 
+var allText;
+var lineTextArr;
+var charTextArr = [];
+var lcArr = [];
+var shuffleLcArr = [];
+var capsArr = [];
+var shuffleCapsArr = [];
+    
+//read the file
+readTextFile("wow.txt");
+console.log('WOW');
+//console.log(allText);
 
-var str = document.getElementById('ln1').innerHTML;
-    var strarr1 = [];
-    var hexarr1 = [];
+//shuffle up an alphabet
+alphabet();
+console.log('lc='+lcArr);
+console.log('cypher='+shuffleLcArr);
+console.log('caps='+capsArr);
+console.log('cypher='+shuffleCapsArr);
+
+//encode and clear cypher
+wow();
+console.log('Did I drop something?...');
+console.log(allText);
+console.log('lc='+lcArr);
+console.log('cypher='+shuffleLcArr);
+console.log('caps='+capsArr);
+console.log('cypher='+shuffleCapsArr);
+
+//split into lines
+lineTextArr = allText.split("\n");
 
 
-hexorstr(str);
-wrapchar(str);
-console.log('final strarr1 = ' + strarr1);
-console.log('final hexarr1 = ' + hexarr1);
-
-
-function wrapchar(str) {
-    console.log(str);
-    return str.replace(/\S/g, '<span>$&</span>');
+//split lines into characters
+for (i = 0; i < lineTextArr.length; i++) {
+    charTextArr[i] = lineTextArr[i].split("");
 }
 
-function hexorstr(str)
-{
-    console.log(str);
-
-    console.log("strarr1 created: " + strarr1);
-    console.log("hexarr1 created: " + hexarr1);
-    for (var n = 0, l = str.length; n < l; n++)
-    {
-        var ascii = String.fromCharCode((str.charCodeAt(n)));
-        var hex = Number(str.charCodeAt(n)).toString(16);
-        console.log(ascii + " = " + hex);
-        strarr1.push(ascii);
-        console.log('strarr1 = ' + strarr1);
-        hexarr1.push(hex);
-        console.log('hexarr1 = ' + hexarr1);
+function wow() {
+    //for each lowercase cypher
+    for (i = 0; i < lcArr.length; i++) {
+     for(j=0;j<allText.length;j++){   
+         //replace all the letters in the message
+        allText = allText.replace(lcArr[i], shuffleLcArr[i]);
     }
-    return hexarr1.join('');
+    }
+    
+    //for each uppercase cypher
+    for (i = 0; i < capsArr.length; i++) {
+     for(j=0;j<allText.length;j++){   
+         //replace all the letters in the message
+        allText = allText.replace(capsArr[i], shuffleCapsArr[i]);
+    }
+    }
+    
+    //whoops! heheh
+    lcArr = [];
+    shuffleLcArr = [];
+    capsArr = [];
+    shuffleCapsArr = [];
 }
-   
+
+function alphabet() {
+    var caps = '';
+    var lc = '';
+
+    //get cap letters
+    for (var i = 65; i <= 90; i++) {
+        caps += String.fromCharCode(i);
+    }
+    //get lc letters
+    for (var i = 97; i <= 122; i++) {
+        lc += String.fromCharCode(i);
+    }
+    //create array from caps
+    capsArr = caps.split("");
+    shuffleCapsArr = caps.split("");
+    //shuffle caps
+    shuffle(shuffleCapsArr);
+    //create array from lc
+    lcArr = lc.split("");
+    shuffleLcArr = lc.split("");
+    //shuffle lc
+    shuffle(shuffleLcArr);
+    
+    }
+
+function shuffle(array) {
+    var shuffledarray;
+    var currentIndex = array.length;
+    var temporaryValue, randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+}
+
+function readTextFile(file) {
+    var rawFile = new XMLHttpRequest();
+    rawFile.open("GET", file, false);
+    rawFile.onreadystatechange = function ()
+    {
+        if (rawFile.readyState === 4)
+        {
+            if (rawFile.status === 200 || rawFile.status == 0)
+            {
+                allText = rawFile.responseText;
+            }
+        }
+    };
+    rawFile.send(null);
+}
