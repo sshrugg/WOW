@@ -8,10 +8,23 @@ and open the template in the editor.
     Author     : sshru
 */
 
+html,body{
+    width:100%;
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+
+div{
+    margin: 0px;
+    padding: 0px;
+}
+
 .wowsignal{
     display: block;
     width: 100%;
-    background-color: red;
+    height: 100%;
+    background-color: lightgray;
     font-family: monospace;
     text-align: justify;
 }

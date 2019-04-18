@@ -11,7 +11,7 @@ var lcArr = [];
 var shuffleLcArr = [];
 var capsArr = [];
 var shuffleCapsArr = [];
-    
+
 //read the file
 readTextFile("wow.txt");
 console.log('WOW');
@@ -19,51 +19,77 @@ console.log('WOW');
 
 //shuffle up an alphabet
 alphabet();
-console.log('lc='+lcArr);
-console.log('cypher='+shuffleLcArr);
-console.log('caps='+capsArr);
-console.log('cypher='+shuffleCapsArr);
 
 //encode and clear cypher
 wow();
-console.log('Did I drop something?...');
 console.log(allText);
-console.log('lc='+lcArr);
-console.log('cypher='+shuffleLcArr);
-console.log('caps='+capsArr);
-console.log('cypher='+shuffleCapsArr);
 
 //split into lines
 lineTextArr = allText.split("\n");
-
 
 //split lines into characters
 for (i = 0; i < lineTextArr.length; i++) {
     charTextArr[i] = lineTextArr[i].split("");
 }
 
+//write to the left div
+asciiout();
+
+
+
+function asciiout() {
+//wrap each line in a div
+    for (i = 0; i < charTextArr.length; i++) {
+        var linecount = i + 1;
+        //console.log('linecount='+linecount);
+        var newElement = document.createElement('div');
+        newElement.id = 'line' + linecount;
+        newElement.className = "ascii";
+        newElement.innerHTML = '';
+        document.getElementById("leftside").appendChild(newElement);
+
+        //and wrap each character in a span
+        for (j = 0; j < charTextArr[i].length; j++) {
+            var charcount = j + 1;
+            //console.log('line'+linecount+' charcount='+charcount);
+            var newElement = document.createElement('span');
+            newElement.id = 'char' + charcount;
+            newElement.className = "ascii, " + charTextArr[i][j];
+            newElement.innerHTML = charTextArr[i][j];
+            document.getElementById("line" + linecount).appendChild(newElement);
+        }
+    }
+}
+
+
+
 function wow() {
     //for each lowercase cypher
     for (i = 0; i < lcArr.length; i++) {
-     for(j=0;j<allText.length;j++){   
-         //replace all the letters in the message
-        allText = allText.replace(lcArr[i], shuffleLcArr[i]);
+        for (j = 0; j < allText.length; j++) {
+            //replace all the letters in the message
+            allText = allText.replace(lcArr[i], shuffleLcArr[i]);
+        }
     }
-    }
-    
+
     //for each uppercase cypher
     for (i = 0; i < capsArr.length; i++) {
-     for(j=0;j<allText.length;j++){   
-         //replace all the letters in the message
-        allText = allText.replace(capsArr[i], shuffleCapsArr[i]);
-    }
+        for (j = 0; j < allText.length; j++) {
+            //replace all the letters in the message
+            allText = allText.replace(capsArr[i], shuffleCapsArr[i]);
+        }
     }
     
-    //whoops! heheh
-    lcArr = [];
-    shuffleLcArr = [];
-    capsArr = [];
-    shuffleCapsArr = [];
+    /*
+     * 
+     * Subtract vars/Add mischeif: 
+     * lcArr = [];
+     * shuffleLcArr = [];
+     * capsArr = [];
+     * shuffleCapsArr = [];
+     * 
+     */
+    
 }
 
 function alphabet() {
@@ -89,7 +115,15 @@ function alphabet() {
     //shuffle lc
     shuffle(shuffleLcArr);
     
-    }
+    /*
+     * console.log('lc=' + lcArr);
+     * console.log('cypher=' + shuffleLcArr);
+     * console.log('caps=' + capsArr);
+     * console.log('cypher=' + shuffleCapsArr);
+     * 
+     */
+    
+}
 
 function shuffle(array) {
     var shuffledarray;
